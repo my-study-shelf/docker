@@ -91,6 +91,34 @@ docker run -it --name containerName centos
 ```
 以交互的方法打开centos，并返回伪终端，给容器起了名字，叫containerName
 
+### 限制内存和cpu
+
+```bash
+docker run -d --name mysql-dev -p 3306:3306 -m 128m --memory-swap 256m -e MYSQL_ROOT_PASSWORD=root mysql
+```
+* 限制内存的参数
+
+|选项|描述|
+|:-:|:-|
+|`-m,--memory`|内存限制，格式是数字加单位，单位可以为 b,k,m,g。最小为 4M|
+|`--memory-swap`|内存+交换分区大小总限制。格式同上。必须必-m设置的大|
+|`--memory-reservation`|内存的软性限制。格式同上|
+|`--oom-kill-disable`|是否阻止 OOM killer 杀死容器，默认没设置|
+|`--oom-score-adj`|容器被 OOM killer 杀死的优先级，范围是[-1000, 1000]，默认为 0|
+|`--memory-swappiness`|用于设置容器的虚拟内存控制行为。值为 0~100 之间的整数|
+|`--kernel-memory`|核心内存限制。格式同上，最小为 4M|
+
+
+* cpu 限制参数
+
+|选项|描述|
+|:-:|:-|
+|`--cpuset-cpus=""`|允许使用的 CPU 集，值可以为 0-3,0,1|
+|`-c,--cpu-shares=0`|CPU 共享权值（相对权重|
+|`cpu-period=0`|限制 CPU CFS 的周期，范围从 100ms~1s，即[1000, 1000000]|
+|`--cpu-quota=0`|限制 CPU CFS 配额，必须不小于1ms，即 >= 1000|
+|`--cpuset-mems=""`|允许在上执行的内存节点（MEMs），只对 NUMA 系统有效|
+
 ### 退出且关闭容器
 ```
 [root@7841ced6dfd6 /]# exit
