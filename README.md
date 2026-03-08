@@ -16,6 +16,25 @@ systemctl start docker
 systemctl enabel docker
 ```
 
+### 配置镜像源
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<EOF
+{
+"registry-mirrors": [
+   "https://docker.xuanyuan.me",
+   "https://mirror.ccs.tencentyun.com",
+   "https://clw9pmcy.mirror.aliyuncs.com",
+   "https://docker.m.daocloud.io",
+   "https://docker.1ms.run"
+]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
 ### 查看docker的运行状态
 ```
 systemctl status docker
